@@ -8,3 +8,4 @@ class Config:
     SUPPORTED_TYPES = {
         'ip': 'IP'
     }
+    API_URL = 'https://{host}/search/query'
