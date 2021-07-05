@@ -28,7 +28,7 @@ def set_environment_variable(payload, variable_name):
     try:
         variable = payload[variable_name]
     except KeyError:
-        variable = current_app.config[f'default_{variable_name}']
+        variable = current_app.config[f'DEFAULT_{variable_name}']
     current_app.config[variable_name] = variable
 
 
