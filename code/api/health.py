@@ -17,6 +17,6 @@ def health():
             host=current_app.config['HOST'])
     )
 
-    client.get_jobs()
+    _ = client.get_jobs()
 
     return jsonify_data({'status': 'ok'})
