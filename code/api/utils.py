@@ -1,8 +1,9 @@
-import json
-from json.decoder import JSONDecodeError
-import requests
 import jwt
-from flask import request, jsonify
+import json
+import requests
+
+from json.decoder import JSONDecodeError
+from flask import request, jsonify, current_app
 from requests.exceptions import ConnectionError, InvalidURL
 from jwt import InvalidSignatureError, DecodeError, InvalidAudienceError
 from api.errors import AuthorizationError, InvalidArgumentError
@@ -120,3 +121,17 @@ def jsonify_data(data):
 
 def jsonify_errors(data):
     return jsonify({'errors': [data]})
+
+
+def remove_duplicates(observables):
+    return [dict(t) for t in {tuple(d.items()) for d in observables}]
+
+
+def filter_observables(observables):
+    supported_types = current_app.config['SUPPORTED_TYPES']
+    observables = remove_duplicates(observables)
+    return list(
+        filter(lambda obs: (
+                obs['type'] in supported_types and obs["value"] != "0"
+        ), observables)
+    )
