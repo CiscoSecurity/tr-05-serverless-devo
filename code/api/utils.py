@@ -35,10 +35,6 @@ def set_environment_variable(payload, variable_name):
 def get_public_key(jwks_host, token):
     """
     Get public key by requesting it from specified jwks host.
-
-    NOTE. This function is just an example of how one can read and check
-    anything before passing to an API endpoint, and thus it may be modified in
-    any way, replaced by another function, or even removed from the module.
     """
 
     expected_errors = {
@@ -67,10 +63,6 @@ def get_public_key(jwks_host, token):
 def get_auth_token():
     """
     Parse and validate incoming request Authorization header.
-
-    NOTE. This function is just an example of how one can read and check
-    anything before passing to an API endpoint, and thus it may be modified in
-    any way, replaced by another function, or even removed from the module.
     """
     expected_errors = {
         KeyError: NO_AUTH_HEADER,
@@ -88,10 +80,6 @@ def get_jwt():
     """
     Get Authorization token and validate its signature
     against the public key from /.well-known/jwks endpoint.
-
-    NOTE. This function is just an example of how one can read and check
-    anything before passing to an API endpoint, and thus it may be modified in
-    any way, replaced by another function, or even removed from the module.
     """
 
     expected_errors = {
@@ -128,10 +116,6 @@ def get_json(schema):
     """
     Parse the incoming request's data as JSON.
     Validate it against the specified schema.
-
-    NOTE. This function is just an example of how one can read and check
-    anything before passing to an API endpoint, and thus it may be modified in
-    any way, replaced by another function, or even removed from the module.
     """
 
     data = request.get_json(force=True, silent=True, cache=False)
