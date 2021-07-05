@@ -1,8 +1,9 @@
-import json
-from json.decoder import JSONDecodeError
-import requests
 import jwt
-from flask import request, jsonify
+import json
+import requests
+
+from json.decoder import JSONDecodeError
+from flask import request, jsonify, current_app
 from requests.exceptions import ConnectionError, InvalidURL
 from jwt import InvalidSignatureError, DecodeError, InvalidAudienceError
 from api.errors import AuthorizationError, InvalidArgumentError
@@ -21,6 +22,14 @@ JWKS_HOST_MISSING = ('jwks_host is missing in JWT payload. Make sure '
                      'custom_jwks_host field is present in module_type')
 WRONG_JWKS_HOST = ('Wrong jwks_host in JWT payload. Make sure domain follows '
                    'the visibility.<region>.cisco.com structure')
+
+
+def set_environment_variable(payload, variable_name):
+    try:
+        variable = payload[variable_name]
+    except KeyError:
+        variable = current_app.config[f'default_{variable_name}']
+    current_app.config[variable_name] = variable
 
 
 def get_public_key(jwks_host, token):
@@ -104,7 +113,12 @@ def get_jwt():
         payload = jwt.decode(
             token, key=key, algorithms=['RS256'], audience=[aud.rstrip('/')]
         )
-        return payload['key']
+
+        set_environment_variable(payload, 'key')
+        set_environment_variable(payload, 'host')
+        set_environment_variable(payload, 'secret')
+
+        return payload
     except tuple(expected_errors) as error:
         message = expected_errors[error.__class__]
         raise AuthorizationError(message)
