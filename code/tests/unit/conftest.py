@@ -22,6 +22,8 @@ def client():
 def valid_jwt(client):
     def _make_jwt(
             key='some_key',
+            secret='some_secret',
+            host='some_host',
             jwks_host='visibility.amp.cisco.com',
             aud='http://localhost',
             kid='02B1174234C29F8EFB69911438F597FF3FFEE6B7',
@@ -29,6 +31,8 @@ def valid_jwt(client):
     ):
         payload = {
             'key': key,
+            'secret': secret,
+            'host': host,
             'jwks_host': jwks_host,
             'aud': aud,
         }
