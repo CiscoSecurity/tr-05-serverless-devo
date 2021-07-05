@@ -30,15 +30,15 @@ def valid_jwt(client):
             wrong_structure=False
     ):
         payload = {
-            'key': key,
-            'secret': secret,
-            'host': host,
+            'KEY': key,
+            'SECRET': secret,
+            'HOST': host,
             'jwks_host': jwks_host,
             'aud': aud,
         }
 
         if wrong_structure:
-            payload.pop('key')
+            payload.pop('KEY')
 
         return jwt.encode(
             payload, client.application.rsa_private_key, algorithm='RS256',

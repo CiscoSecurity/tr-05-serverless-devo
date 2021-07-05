@@ -114,9 +114,9 @@ def get_jwt():
             token, key=key, algorithms=['RS256'], audience=[aud.rstrip('/')]
         )
 
-        set_environment_variable(payload, 'key')
-        set_environment_variable(payload, 'host')
-        set_environment_variable(payload, 'secret')
+        set_environment_variable(payload, 'KEY')
+        set_environment_variable(payload, 'HOST')
+        set_environment_variable(payload, 'SECRET')
 
         return payload
     except tuple(expected_errors) as error:

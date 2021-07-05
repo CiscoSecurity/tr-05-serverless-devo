@@ -10,11 +10,11 @@ health_api = Blueprint('health', __name__)
 def health():
     _ = get_jwt()
     client = Client(auth={
-        "key": current_app.config['key'],
-        "secret": current_app.config['secret']
+        "key": current_app.config['KEY'],
+        "secret": current_app.config['SECRET']
     },
         address=current_app.config['API_URL'].format(
-            host=current_app.config['host'])
+            host=current_app.config['HOST'])
     )
 
     client.get_jobs()
