@@ -68,7 +68,7 @@ curl http://localhost:9090
 
 ## Implementation Details
 
-`N/A`
+This application was developed and tested under Python version 3.9
 
 ### Implemented Relay Endpoints
 
