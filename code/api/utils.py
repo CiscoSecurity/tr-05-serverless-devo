@@ -3,7 +3,7 @@ import json
 import requests
 
 from json.decoder import JSONDecodeError
-from flask import request, jsonify, current_app
+from flask import request, jsonify, current_app, g
 from requests.exceptions import ConnectionError, InvalidURL
 from jwt import InvalidSignatureError, DecodeError, InvalidAudienceError
 from api.errors import AuthorizationError, InvalidArgumentError
@@ -139,3 +139,26 @@ def filter_observables(observables):
                 obs['type'] in supported_types and obs["value"] != "0"
         ), observables)
     )
+
+
+def format_docs(docs):
+    return {'count': len(docs), 'docs': docs}
+
+
+def jsonify_result():
+    result = {'data': {}}
+
+    if g.get('sightings'):
+        result['data']['sightings'] = format_docs(g.sightings)
+
+    if g.get('errors'):
+        result['errors'] = g.errors
+        if not result['data']:
+            del result['data']
+
+    return jsonify(result)
+
+
+def add_error(error):
+    g.errors = [*g.get('errors', []), error.json]
+
