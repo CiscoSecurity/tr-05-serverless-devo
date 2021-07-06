@@ -1,7 +1,12 @@
 from flask import current_app
 from api.errors import DevoError
-from devo.api import Client, DevoClientException
 from requests.exceptions import ConnectionError
+from devo.api import (
+    Client,
+    DevoClientException,
+    ClientConfig,
+    JSON_SIMPLE
+)
 
 ERROR_MSGS = {
     "no_endpoint": "Host not found"
@@ -25,8 +30,13 @@ def handle_devo_errors(func):
 class DevoClient:
     def __init__(self, credentials):
         self.credentials = credentials
-        self._client = self._authorize(self._auth, self._address)
-        self.default_limit = current_app.config['DEFAULT_CTR_ENTITIES_LIMIT']
+        self.config = ClientConfig(
+            response="json/simple",
+            processor=JSON_SIMPLE,
+            stream=True
+        )
+        self._client = self._authorize(self._auth, self._address, self.config)
+        self.default_limit = 101
 
     @property
     def _auth(self):
@@ -51,15 +61,18 @@ class DevoClient:
         return limit
 
     @staticmethod
-    def _authorize(auth, address, retries=2):
+    def _authorize(auth, address, config, retries=2):
         """
         Authorize on specific address with given credentials in auth
         :param auth: object which contains params (key, secret)
         :param address: endpoint
+        :param config: main class for configuration of Client class
+        with diferent configurations
         :param retries: number of retries for a query
         :return: <class 'devo.api.client.Client'>
         """
-        return Client(auth=auth, address=address, retries=retries)
+        return Client(auth=auth, address=address, retries=retries,
+                      config=config)
 
     @handle_devo_errors
     def query(self, observable, limit=None):
