@@ -9,3 +9,5 @@ class Config:
         'ip': 'IP'
     }
     API_URL = 'https://{host}/search/query'
+
+    DEFAULT_CTR_ENTITIES_LIMIT = 101
