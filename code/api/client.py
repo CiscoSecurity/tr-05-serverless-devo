@@ -55,9 +55,9 @@ class DevoClient:
     def _authorize(auth, address, retries=2):
         """
         Authorize on specific address with given credentials in auth
-        :param auth: Object which contains params (key, secret)
-        :param address: Endpoint
-        :param retries: Number of retries for a query
+        :param auth: object which contains params (key, secret)
+        :param address: endpoint
+        :param retries: number of retries for a query
         :return: <class 'devo.api.client.Client'>
         """
         return Client(auth=auth, address=address, retries=retries)
@@ -66,8 +66,8 @@ class DevoClient:
     def query(self, observable, limit=None):
         """
         Query API by a custom query
-        :param observable: Observable value which need to be investigated
-        :param limit: Max number of rows
+        :param observable: observable value which need to be investigated
+        :param limit: max number of rows
         :return: list
         """
         if limit is None:
@@ -87,9 +87,9 @@ class DevoClient:
     def jobs(self, type_=None, name=None):
         """
         Get list of jobs by type and name, default All
-        :param type_: Category of jobs
-        :param name: Name of jobs
-        :return: son
+        :param type_: category of jobs
+        :param name: name of jobs
+        :return: json
         """
 
         return self._client.get_jobs(type_, name)
