@@ -161,4 +161,3 @@ def jsonify_result():
 
 def add_error(error):
     g.errors = [*g.get('errors', []), error.json]
-
