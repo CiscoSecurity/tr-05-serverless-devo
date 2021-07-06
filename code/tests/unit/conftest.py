@@ -22,19 +22,28 @@ def client():
 def valid_jwt(client):
     def _make_jwt(
             key='some_key',
+            secret='some_secret',
+            host='some_host',
             jwks_host='visibility.amp.cisco.com',
             aud='http://localhost',
             kid='02B1174234C29F8EFB69911438F597FF3FFEE6B7',
-            wrong_structure=False
+            wrong_structure=False,
+            wrong_jwks_host=False
+
     ):
         payload = {
-            'key': key,
+            'KEY': key,
+            'SECRET': secret,
+            'HOST': host,
             'jwks_host': jwks_host,
             'aud': aud,
         }
 
         if wrong_structure:
-            payload.pop('key')
+            payload.pop('KEY')
+
+        if wrong_jwks_host:
+            payload.pop('jwks_host')
 
         return jwt.encode(
             payload, client.application.rsa_private_key, algorithm='RS256',
