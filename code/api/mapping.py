@@ -1,6 +1,7 @@
 from uuid import uuid5, NAMESPACE_X500
 from datetime import datetime, timezone
 
+
 SIGHTING = 'sighting'
 TITLE = (
     'Log message received by '
@@ -35,12 +36,12 @@ DATA = (
 class Mapping:
 
     @staticmethod
-    def _transient_id(type_, title, timestamp, observable):
+    def _transient_id(type_, title, timestamp, observable) -> str:
         seeds = f'{type_}|{title}|{timestamp}|{observable}'
         return f'transient:{type_}-{uuid5(NAMESPACE_X500, seeds)}'
 
     @staticmethod
-    def _observed_time(msg):
+    def _observed_time(msg) -> dict:
         return {
             'start_time': datetime.fromtimestamp(
                 msg.get("eventdate") / 1000.0, timezone.utc
@@ -58,7 +59,7 @@ class Mapping:
 
         return data
 
-    def extract_sighting(self, observable, msg):
+    def extract_sighting(self, observable, msg) -> dict:
         return {
             'id': self._transient_id(
                 SIGHTING, TITLE,
