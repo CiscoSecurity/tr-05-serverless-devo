@@ -39,3 +39,11 @@ class WatchdogError(TRFormattedError):
             code='health check failed',
             message='Invalid Health Check'
         )
+
+
+class DevoError(TRFormattedError):
+    def __init__(self, message):
+        super().__init__(
+            code='devo error',
+            message=message
+        )
