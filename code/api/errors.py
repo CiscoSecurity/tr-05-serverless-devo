@@ -39,3 +39,22 @@ class WatchdogError(TRFormattedError):
             code='health check failed',
             message='Invalid Health Check'
         )
+
+
+class DevoError(TRFormattedError):
+    def __init__(self, message):
+        super().__init__(
+            code='devo error',
+            message=message
+        )
+
+
+class TooManyMessagesWarning(TRFormattedError):
+    def __init__(self, observable):
+        super().__init__(
+            'too-many-messages-warning',
+            f'More messages found in Devo for {observable} '
+            f'than can be rendered. Login to the Devo '
+            f'console to see all messages',
+            'warning'
+        )
