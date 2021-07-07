@@ -100,7 +100,7 @@ Each response from the Devo API for the supported observables generates the foll
 | confidence                | yes      | High                                                         |
 | count                     | yes      | 1                                                            |
 | id                        | yes      | type, title, .object[].eventdate, and observable.value are used as seed to generate ID |
-| observed_time: start_time | *yes*    | .object[].eventdate                                          |
+| observed_time: start_time | yes      | .object[].eventdate                                          |
 | schema_version            | yes      | 1.1.6                                                        |
 | type                      | yes      | sighting                                                     |
 | data: columns             |          | Keys (as `"type": "string"`) for the following fields: "technology", "brand", "phylum", "family", "genus", "species" |
