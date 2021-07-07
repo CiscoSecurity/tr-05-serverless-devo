@@ -3,7 +3,7 @@ import json
 import requests
 
 from json.decoder import JSONDecodeError
-from flask import request, jsonify, current_app
+from flask import request, jsonify, current_app, g
 from requests.exceptions import ConnectionError, InvalidURL
 from jwt import InvalidSignatureError, DecodeError, InvalidAudienceError
 from api.errors import AuthorizationError, InvalidArgumentError
@@ -22,14 +22,6 @@ JWKS_HOST_MISSING = ('jwks_host is missing in JWT payload. Make sure '
                      'custom_jwks_host field is present in module_type')
 WRONG_JWKS_HOST = ('Wrong jwks_host in JWT payload. Make sure domain follows '
                    'the visibility.<region>.cisco.com structure')
-
-
-def set_environment_variable(payload, variable_name):
-    try:
-        variable = payload[variable_name]
-    except KeyError:
-        variable = current_app.config[f'DEFAULT_{variable_name}']
-    current_app.config[variable_name] = variable
 
 
 def get_public_key(jwks_host, token):
@@ -76,7 +68,7 @@ def get_auth_token():
         raise AuthorizationError(expected_errors[error.__class__])
 
 
-def get_jwt():
+def get_credentials():
     """
     Get Authorization token and validate its signature
     against the public key from /.well-known/jwks endpoint.
@@ -92,19 +84,18 @@ def get_jwt():
     }
     token = get_auth_token()
     try:
-        jwks_host = jwt.decode(
-            token, options={'verify_signature': False}
-        ).get('jwks_host')
-        assert jwks_host
+        jwks_payload = jwt.decode(token, options={'verify_signature': False})
+        assert 'jwks_host' in jwks_payload
+        jwks_host = jwks_payload.get('jwks_host')
         key = get_public_key(jwks_host, token)
         aud = request.url_root
         payload = jwt.decode(
             token, key=key, algorithms=['RS256'], audience=[aud.rstrip('/')]
         )
 
-        set_environment_variable(payload, 'KEY')
-        set_environment_variable(payload, 'HOST')
-        set_environment_variable(payload, 'SECRET')
+        _ = payload['KEY']
+        _ = payload['HOST']
+        _ = payload['SECRET']
 
         return payload
     except tuple(expected_errors) as error:
@@ -134,3 +125,39 @@ def jsonify_data(data):
 
 def jsonify_errors(data):
     return jsonify({'errors': [data]})
+
+
+def remove_duplicates(observables):
+    return [dict(t) for t in {tuple(d.items()) for d in observables}]
+
+
+def filter_observables(observables):
+    supported_types = current_app.config['SUPPORTED_TYPES']
+    observables = remove_duplicates(observables)
+    return list(
+        filter(lambda obs: (
+                obs['type'] in supported_types and obs["value"] != "0"
+        ), observables)
+    )
+
+
+def format_docs(docs):
+    return {'count': len(docs), 'docs': docs}
+
+
+def jsonify_result():
+    result = {'data': {}}
+
+    if g.get('sightings'):
+        result['data']['sightings'] = format_docs(g.sightings)
+
+    if g.get('errors'):
+        result['errors'] = g.errors
+        if not result['data']:
+            del result['data']
+
+    return jsonify(result)
+
+
+def add_error(error):
+    g.errors = [*g.get('errors', []), error.json]
