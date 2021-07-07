@@ -1,8 +1,8 @@
-from flask import Blueprint, g
 from functools import partial
 from api.mapping import Mapping
 from api.client import DevoClient
 from api.schemas import ObservableSchema
+from flask import Blueprint, g, current_app
 
 from api.utils import (
     get_json,
@@ -43,7 +43,7 @@ def observe_observables():
 
             sighting = mapping.extract_sighting(observable, msg)
             g.sightings.append(sighting)
-        if len(messages) >= client.default_limit:
+        if len(messages) >= current_app.config['TOO_MANY_MSGS_WARNING_LIMIT']:
             add_error(TooManyMessagesWarning(observable['value']))
     return jsonify_result()
 

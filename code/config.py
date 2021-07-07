@@ -11,3 +11,4 @@ class Config:
     API_URL = 'https://{host}/search/query'
 
     DEFAULT_CTR_ENTITIES_LIMIT = 100
+    TOO_MANY_MSGS_WARNING_LIMIT = DEFAULT_CTR_ENTITIES_LIMIT + 1
