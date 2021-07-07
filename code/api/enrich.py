@@ -1,5 +1,6 @@
 from flask import Blueprint, g
 from functools import partial
+from api.mapping import Mapping
 from api.client import DevoClient
 from api.schemas import ObservableSchema
 
@@ -7,8 +8,12 @@ from api.utils import (
     get_json,
     get_credentials,
     jsonify_data,
-    filter_observables
+    filter_observables,
+    jsonify_result,
+    add_error
 )
+
+from api.errors import TooManyMessagesWarning
 
 enrich_api = Blueprint('enrich', __name__)
 
@@ -30,10 +35,17 @@ def observe_observables():
     g.sightings = []
 
     client = DevoClient(credentials)
-    for observable in observables:
-        _ = client.query(observable['value'])
+    mapping = Mapping()
 
-    return jsonify_data({})
+    for observable in observables:
+        messages = client.query(observable['value'])
+        for msg in messages:
+
+            sighting = mapping.extract_sighting(observable, msg)
+            g.sightings.append(sighting)
+        if len(messages) >= client.default_limit:
+            add_error(TooManyMessagesWarning(observable['value']))
+    return jsonify_result()
 
 
 @enrich_api.route('/refer/observables', methods=['POST'])
