@@ -55,7 +55,7 @@ class DevoClient:
         host = self.credentials['HOST']
         if not host:
             raise DevoError(ERROR_MSGS['no_endpoint'])
-        return current_app.config['API_URL'].format(host=host)
+        return host
 
     @property
     def limit(self):
