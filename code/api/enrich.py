@@ -3,6 +3,7 @@ from functools import partial
 from api.mapping import Mapping
 from api.client import DevoClient
 from api.schemas import ObservableSchema
+from api.errors import TooManyMessagesWarning
 
 from api.utils import (
     get_json,
@@ -13,7 +14,6 @@ from api.utils import (
     add_error
 )
 
-from api.errors import TooManyMessagesWarning
 
 enrich_api = Blueprint('enrich', __name__)
 
