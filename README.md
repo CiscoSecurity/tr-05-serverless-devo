@@ -82,7 +82,7 @@ This application was developed and tested under Python version 3.9
   - Makes request to the underlying external service to query for some cyber threat intelligence data on each supported observable.
   - Maps the fetched data into appropriate CTIM entities.
   - Returns a list per each of the following CTIM entities (if any extracted):
-    - Sighting,
+    - Sighting
   
 - `POST /version`
   - Returns the current version of the application.
