@@ -96,7 +96,7 @@ class DevoClient:
                 "from": "now()-30*day()",
                 "to": "now()"
             },
-            limit=limit
+            limit=limit+1
         )
 
         return [data for data in response]
