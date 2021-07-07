@@ -1,27 +1,27 @@
 EXPECTED_RESPONSE_OF_JWKS_ENDPOINT = {
-  'keys': [
-    {
-      'kty': 'RSA',
-      'n': 'tSKfSeI0fukRIX38AHlKB1YPpX8PUYN2JdvfM-XjNmLfU1M74N0V'
-           'mdzIX95sneQGO9kC2xMIE-AIlt52Yf_KgBZggAlS9Y0Vx8DsSL2H'
-           'vOjguAdXir3vYLvAyyHin_mUisJOqccFKChHKjnk0uXy_38-1r17'
-           '_cYTp76brKpU1I4kM20M__dbvLBWjfzyw9ehufr74aVwr-0xJfsB'
-           'Vr2oaQFww_XHGz69Q7yHK6DbxYO4w4q2sIfcC4pT8XTPHo4JZ2M7'
-           '33Ea8a7HxtZS563_mhhRZLU5aynQpwaVv2U--CL6EvGt8TlNZOke'
-           'Rv8wz-Rt8B70jzoRpVK36rR-pHKlXhMGT619v82LneTdsqA25Wi2'
-           'Ld_c0niuul24A6-aaj2u9SWbxA9LmVtFntvNbRaHXE1SLpLPoIp8'
-           'uppGF02Nz2v3ld8gCnTTWfq_BQ80Qy8e0coRRABECZrjIMzHEg6M'
-           'loRDy4na0pRQv61VogqRKDU2r3_VezFPQDb3ciYsZjWBr3HpNOkU'
-           'jTrvLmFyOE9Q5R_qQGmc6BYtfk5rn7iIfXlkJAZHXhBy-ElBuiBM'
-           '-YSkFM7dH92sSIoZ05V4MP09Xcppx7kdwsJy72Sust9Hnd9B7V35'
-           'YnVF6W791lVHnenhCJOziRmkH4xLLbPkaST2Ks3IHH7tVltM6NsR'
-           'k3jNdVM',
-      'e': 'AQAB',
-      'alg': 'RS256',
-      'kid': '02B1174234C29F8EFB69911438F597FF3FFEE6B7',
-      'use': 'sig'
-    }
-  ]
+    'keys': [
+        {
+            'kty': 'RSA',
+            'n': 'tSKfSeI0fukRIX38AHlKB1YPpX8PUYN2JdvfM-XjNmLfU1M74N0V'
+                 'mdzIX95sneQGO9kC2xMIE-AIlt52Yf_KgBZggAlS9Y0Vx8DsSL2H'
+                 'vOjguAdXir3vYLvAyyHin_mUisJOqccFKChHKjnk0uXy_38-1r17'
+                 '_cYTp76brKpU1I4kM20M__dbvLBWjfzyw9ehufr74aVwr-0xJfsB'
+                 'Vr2oaQFww_XHGz69Q7yHK6DbxYO4w4q2sIfcC4pT8XTPHo4JZ2M7'
+                 '33Ea8a7HxtZS563_mhhRZLU5aynQpwaVv2U--CL6EvGt8TlNZOke'
+                 'Rv8wz-Rt8B70jzoRpVK36rR-pHKlXhMGT619v82LneTdsqA25Wi2'
+                 'Ld_c0niuul24A6-aaj2u9SWbxA9LmVtFntvNbRaHXE1SLpLPoIp8'
+                 'uppGF02Nz2v3ld8gCnTTWfq_BQ80Qy8e0coRRABECZrjIMzHEg6M'
+                 'loRDy4na0pRQv61VogqRKDU2r3_VezFPQDb3ciYsZjWBr3HpNOkU'
+                 'jTrvLmFyOE9Q5R_qQGmc6BYtfk5rn7iIfXlkJAZHXhBy-ElBuiBM'
+                 '-YSkFM7dH92sSIoZ05V4MP09Xcppx7kdwsJy72Sust9Hnd9B7V35'
+                 'YnVF6W791lVHnenhCJOziRmkH4xLLbPkaST2Ks3IHH7tVltM6NsR'
+                 'k3jNdVM',
+            'e': 'AQAB',
+            'alg': 'RS256',
+            'kid': '02B1174234C29F8EFB69911438F597FF3FFEE6B7',
+            'use': 'sig'
+        }
+    ]
 }
 
 RESPONSE_OF_JWKS_ENDPOINT_WITH_WRONG_KEY = {
@@ -101,3 +101,223 @@ nKyI8B5gw4C0G0iL1dSsz2bR1O4GNOVfT3R6joZEXATFo/Kc2L0YAvApBNUYvY0k
 bjJ/JfTO5060SsWftf4iw3jrhSn9RwTTYdq/kErGFWvDGJn2MiuhMe2onNfVzIGR
 mdUxHwi1ulkspAn/fmY7f0hZpskDwcHyZmbKZuk+NU/FJ8IAcmvk9y7m25nSSc8=
 -----END RSA PRIVATE KEY-----"""
+
+EXPECTED_RESPONSE_FROM_DEVO = [{'eventdate': 1623069714735,
+                                'technology': 'my', 'brand': 'app', 'phylum': 'cisco', 'family': 'amp',
+                                'genus': 'cloudlogs', 'species': '',
+                                'tables': [['my', 'synthesis', 'ciscodleval', 'amp', 'dfc'],
+                                           ['my', 'synthesis', 'ciscodleval', 'eventlogs', 'example'], ['my', 'app'],
+                                           ['my', 'synthesis', 'ciscodleval', 'ampevent', 'exprev1'],
+                                           ['my', 'app', 'ciscodleval', 'cisco', 'amp'],
+                                           ['my', 'synthesis', 'ciscodleval', 'jib'],
+                                           ['my', 'synthesis', 'ciscodleval', 'ampevent', 'detection'],
+                                           ['my', 'synthesis', 'ciscodleval', 'custom', 'table'],
+                                           ['my', 'app', 'ciscodleval', 'cisco']], 'hostName': 'relay-01',
+                                'hostIp': '172.25.1.47',
+                                'message': '{"qt":26,"ip":"10.213.37.102","pip":"10.213.1.12","ti":13,"tv":5,"sbc":{'
+                                           '"bin":165,"bout":183},"pr":52,"ets":1613439070,"ts":1613439073,'
+                                           '"tsns":516833139,"uu":"7924dcfe-7d21-4dc6-8c24-694ee55f98b9","ai":1,'
+                                           '"bg":"40041f5a-a8ad-4c29-9fda-d9b8ee966a6e","aptus":887,"ptus":905,'
+                                           '"nfm":{"dir":1,"proto":6,"nt":1},"lip":{"ip":"192.168.43.199","p":53636},'
+                                           '"rip":{"ip":"27.123.176.106","p":80},"liptr":{"ip":"192.168.43.199",'
+                                           '"cidr":0,"dir":0,"proto":0},"riptr":{"ip":"27.123.176.106","cidr":0,'
+                                           '"dir":0,"proto":0},"lipcr":{"ia":0,"ic":0,"id":1},"ripcr":{"ia":0,"ic":0,'
+                                           '"id":1},"psha256":{'
+                                           '"h":"DD191A5B23DF92E12A8852291F9FB5ED594B76A28A5A464418442584AFD1E048",'
+                                           '"fa":-1964203938,"fs":53744,"ft":1,"hd":2},"rd":1,"ra":2,'
+                                           '"tree":[{"tn":"FireAMP.IPBlacklist.MediumRisk","td":1,"tl":3},'
+                                           '{"tn":"Infected.Bothost.LowRisk","td":1,"tl":3},'
+                                           '{"tn":"Infected.Malware.MediumRisk","td":1,"tl":1},'
+                                           '{"tn":"Infected.TalosResponse.MediumRisk","td":1,"tl":1},'
+                                           '{"tn":"CnC.Host.MediumRisk","td":1,"tl":3},'
+                                           '{"tn":"Infected.RET.Cryptomining.MediumRisk","td":1,"tl":3},'
+                                           '{"tn":"Infected.Cryptomining.MediumRisk","td":1,"tl":1},'
+                                           '{"tn":"CustomIPList","td":1,"tl":3}]}'},
+                               {'eventdate': 1623069714735, 'technology': 'my', 'brand': 'app', 'phylum': 'cisco',
+                                'family': 'amp', 'genus': 'cloudlogs', 'species': '',
+                                'tables': [['my', 'synthesis', 'ciscodleval', 'amp', 'dfc'],
+                                           ['my', 'synthesis', 'ciscodleval', 'eventlogs', 'example'], ['my', 'app'],
+                                           ['my', 'synthesis', 'ciscodleval', 'ampevent', 'exprev1'],
+                                           ['my', 'app', 'ciscodleval', 'cisco', 'amp'],
+                                           ['my', 'synthesis', 'ciscodleval', 'jib'],
+                                           ['my', 'synthesis', 'ciscodleval', 'ampevent', 'detection'],
+                                           ['my', 'synthesis', 'ciscodleval', 'custom', 'table'],
+                                           ['my', 'app', 'ciscodleval', 'cisco']], 'hostName': 'relay-01',
+                                'hostIp': '172.25.1.47',
+                                'message': '{"qt":26,"ip":"10.213.37.102","pip":"10.213.1.12","ti":15,"tv":5,"sbc":{'
+                                           '"bin":165,"bout":183},"pr":52,"ets":1613439072,"ts":1613439073,'
+                                           '"tsns":520537224,"uu":"7924dcfe-7d21-4dc6-8c24-694ee55f98b9","ai":1,'
+                                           '"bg":"40041f5a-a8ad-4c29-9fda-d9b8ee966a6e","aptus":76,"ptus":99,'
+                                           '"nfm":{"dir":1,"proto":6,"nt":1},"lip":{"ip":"192.168.43.199","p":53639},'
+                                           '"rip":{"ip":"27.123.176.106","p":80},"liptr":{"ip":"192.168.43.199",'
+                                           '"cidr":0,"dir":0,"proto":0},"riptr":{"ip":"27.123.176.106","cidr":0,'
+                                           '"dir":0,"proto":0},"lipcr":{"ia":0,"ic":0,"id":1},"ripcr":{"ia":0,"ic":0,'
+                                           '"id":1},"psha256":{'
+                                           '"h":"DD191A5B23DF92E12A8852291F9FB5ED594B76A28A5A464418442584AFD1E048",'
+                                           '"fa":-1964203936,"fs":53744,"ft":1,"hd":2},"rd":1,"ra":2,'
+                                           '"tree":[{"tn":"FireAMP.IPBlacklist.MediumRisk","td":1,"tl":3},'
+                                           '{"tn":"Infected.Bothost.LowRisk","td":1,"tl":3},'
+                                           '{"tn":"Infected.Malware.MediumRisk","td":1,"tl":1},'
+                                           '{"tn":"Infected.TalosResponse.MediumRisk","td":1,"tl":1},'
+                                           '{"tn":"CnC.Host.MediumRisk","td":1,"tl":3},'
+                                           '{"tn":"Infected.RET.Cryptomining.MediumRisk","td":1,"tl":3},'
+                                           '{"tn":"Infected.Cryptomining.MediumRisk","td":1,"tl":1},'
+                                           '{"tn":"CustomIPList","td":1,"tl":3}]}'}]
+
+
+def base_payload():
+    return {
+        "data": {
+            "sightings": {
+                "count": 2,
+                "docs": [
+                    {
+                        "confidence": "High",
+                        "count": 1,
+                        "data": {
+                            "columns": [
+                                {
+                                    "name": "technology",
+                                    "type": "string"
+                                },
+                                {
+                                    "name": "brand",
+                                    "type": "string"
+                                },
+                                {
+                                    "name": "phylum",
+                                    "type": "string"
+                                },
+                                {
+                                    "name": "family",
+                                    "type": "string"
+                                },
+                                {
+                                    "name": "genus",
+                                    "type": "string"
+                                }
+                            ],
+                            "rows": [
+                                [
+                                    "my",
+                                    "app",
+                                    "cisco",
+                                    "amp",
+                                    "cloudlogs"
+                                ]
+                            ]
+                        },
+                        "description": "```\n{\"qt\":26,\"ip\":\"10.213.37.102\",\"pip\":\"10.213.1.12\",\"ti\":13,"
+                                       "\"tv\":5,\"sbc\":{\"bin\":165,\"bout\":183},\"pr\":52,\"ets\":1613439070,"
+                                       "\"ts\":1613439073,\"tsns\":516833139,"
+                                       "\"uu\":\"7924dcfe-7d21-4dc6-8c24-694ee55f98b9\",\"ai\":1,"
+                                       "\"bg\":\"40041f5a-a8ad-4c29-9fda-d9b8ee966a6e\",\"aptus\":887,\"ptus\":905,"
+                                       "\"nfm\":{\"dir\":1,\"proto\":6,\"nt\":1},\"lip\":{\"ip\":\"192.168.43.199\","
+                                       "\"p\":53636},\"rip\":{\"ip\":\"27.123.176.106\",\"p\":80},\"liptr\":{"
+                                       "\"ip\":\"192.168.43.199\",\"cidr\":0,\"dir\":0,\"proto\":0},\"riptr\":{"
+                                       "\"ip\":\"27.123.176.106\",\"cidr\":0,\"dir\":0,\"proto\":0},\"lipcr\":{\"ia\":0,"
+                                       "\"ic\":0,\"id\":1},\"ripcr\":{\"ia\":0,\"ic\":0,\"id\":1},\"psha256\":{"
+                                       "\"h\":\"DD191A5B23DF92E12A8852291F9FB5ED594B76A28A5A464418442584AFD1E048\","
+                                       "\"fa\":-1964203938,\"fs\":53744,\"ft\":1,\"hd\":2},\"rd\":1,\"ra\":2,\"tree\":[{"
+                                       "\"tn\":\"FireAMP.IPBlacklist.MediumRisk\",\"td\":1,\"tl\":3},"
+                                       "{\"tn\":\"Infected.Bothost.LowRisk\",\"td\":1,\"tl\":3},"
+                                       "{\"tn\":\"Infected.Malware.MediumRisk\",\"td\":1,\"tl\":1},"
+                                       "{\"tn\":\"Infected.TalosResponse.MediumRisk\",\"td\":1,\"tl\":1},"
+                                       "{\"tn\":\"CnC.Host.MediumRisk\",\"td\":1,\"tl\":3},"
+                                       "{\"tn\":\"Infected.RET.Cryptomining.MediumRisk\",\"td\":1,\"tl\":3},"
+                                       "{\"tn\":\"Infected.Cryptomining.MediumRisk\",\"td\":1,\"tl\":1},"
+                                       "{\"tn\":\"CustomIPList\",\"td\":1,\"tl\":3}]}\n```",
+                        "id": "transient:sighting-991da40c-19e4-596b-bc1e-d903c191805d",
+                        "internal": True,
+                        "observables": [
+                            {
+                                "type": "ip",
+                                "value": "27.123.176.106"
+                            }
+                        ],
+                        "observed_time": {
+                            "start_time": "2021-06-07T12:41:54.735+00:00"
+                        },
+                        "schema_version": "1.1.6",
+                        "short_description": "Devo received a log message from relay-01 containing the observable",
+                        "source": "Devo",
+                        "title": "Log message received by Devo in last 30 days contains observable",
+                        "type": "sighting"
+                    },
+                    {
+                        "confidence": "High",
+                        "count": 1,
+                        "data": {
+                            "columns": [
+                                {
+                                    "name": "technology",
+                                    "type": "string"
+                                },
+                                {
+                                    "name": "brand",
+                                    "type": "string"
+                                },
+                                {
+                                    "name": "phylum",
+                                    "type": "string"
+                                },
+                                {
+                                    "name": "family",
+                                    "type": "string"
+                                },
+                                {
+                                    "name": "genus",
+                                    "type": "string"
+                                }
+                            ],
+                            "rows": [
+                                [
+                                    "my",
+                                    "app",
+                                    "cisco",
+                                    "amp",
+                                    "cloudlogs"
+                                ]
+                            ]
+                        },
+                        "description": "```\n{\"qt\":26,\"ip\":\"10.213.37.102\",\"pip\":\"10.213.1.12\",\"ti\":15,"
+                                       "\"tv\":5,\"sbc\":{\"bin\":165,\"bout\":183},\"pr\":52,\"ets\":1613439072,"
+                                       "\"ts\":1613439073,\"tsns\":520537224,"
+                                       "\"uu\":\"7924dcfe-7d21-4dc6-8c24-694ee55f98b9\",\"ai\":1,"
+                                       "\"bg\":\"40041f5a-a8ad-4c29-9fda-d9b8ee966a6e\",\"aptus\":76,\"ptus\":99,"
+                                       "\"nfm\":{\"dir\":1,\"proto\":6,\"nt\":1},\"lip\":{\"ip\":\"192.168.43.199\","
+                                       "\"p\":53639},\"rip\":{\"ip\":\"27.123.176.106\",\"p\":80},\"liptr\":{"
+                                       "\"ip\":\"192.168.43.199\",\"cidr\":0,\"dir\":0,\"proto\":0},\"riptr\":{"
+                                       "\"ip\":\"27.123.176.106\",\"cidr\":0,\"dir\":0,\"proto\":0},\"lipcr\":{\"ia\":0,"
+                                       "\"ic\":0,\"id\":1},\"ripcr\":{\"ia\":0,\"ic\":0,\"id\":1},\"psha256\":{"
+                                       "\"h\":\"DD191A5B23DF92E12A8852291F9FB5ED594B76A28A5A464418442584AFD1E048\","
+                                       "\"fa\":-1964203936,\"fs\":53744,\"ft\":1,\"hd\":2},\"rd\":1,\"ra\":2,\"tree\":[{"
+                                       "\"tn\":\"FireAMP.IPBlacklist.MediumRisk\",\"td\":1,\"tl\":3},"
+                                       "{\"tn\":\"Infected.Bothost.LowRisk\",\"td\":1,\"tl\":3},"
+                                       "{\"tn\":\"Infected.Malware.MediumRisk\",\"td\":1,\"tl\":1},"
+                                       "{\"tn\":\"Infected.TalosResponse.MediumRisk\",\"td\":1,\"tl\":1},"
+                                       "{\"tn\":\"CnC.Host.MediumRisk\",\"td\":1,\"tl\":3},"
+                                       "{\"tn\":\"Infected.RET.Cryptomining.MediumRisk\",\"td\":1,\"tl\":3},"
+                                       "{\"tn\":\"Infected.Cryptomining.MediumRisk\",\"td\":1,\"tl\":1},"
+                                       "{\"tn\":\"CustomIPList\",\"td\":1,\"tl\":3}]}\n```",
+                        "id": "transient:sighting-991da40c-19e4-596b-bc1e-d903c191805d",
+                        "internal": True,
+                        "observables": [
+                            {
+                                "type": "ip",
+                                "value": "27.123.176.106"
+                            }
+                        ],
+                        "observed_time": {
+                            "start_time": "2021-06-07T12:41:54.735+00:00"
+                        },
+                        "schema_version": "1.1.6",
+                        "short_description": "Devo received a log message from relay-01 containing the observable",
+                        "source": "Devo",
+                        "title": "Log message received by Devo in last 30 days contains observable",
+                        "type": "sighting"
+                    }
+                ]
+            }
+        }
+    }

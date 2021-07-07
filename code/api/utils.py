@@ -6,7 +6,10 @@ from json.decoder import JSONDecodeError
 from flask import request, jsonify, current_app, g
 from requests.exceptions import ConnectionError, InvalidURL
 from jwt import InvalidSignatureError, DecodeError, InvalidAudienceError
-from api.errors import AuthorizationError, InvalidArgumentError
+from api.errors import (
+    AuthorizationError,
+    InvalidArgumentError
+)
 
 
 NO_AUTH_HEADER = 'Authorization header is missing'

@@ -4,7 +4,7 @@ from app import app
 from pytest import fixture
 from http import HTTPStatus
 from unittest.mock import MagicMock
-from api.errors import INVALID_ARGUMENT
+from api.errors import INVALID_ARGUMENT, UNKNOWN
 from tests.unit.payloads_for_tests import PRIVATE_KEY
 
 
@@ -77,4 +77,28 @@ def mock_api_response(status_code=HTTPStatus.OK, payload=None):
 
     mock_response.json = lambda: payload
 
+    return mock_response
+
+
+@fixture(scope='module')
+def ssl_error_expected_relay_response():
+    return {
+        'errors':
+            [
+                {
+                    'code': UNKNOWN,
+                    'message':
+                        'Unable to verify SSL certificate: '
+                        'self signed certificate',
+                    'type': 'fatal'
+                }
+            ]
+    }
+
+
+@fixture
+def mock_exception_for_ssl_error():
+    mock_response = MagicMock()
+    mock_response.reason.args.__getitem__().verify_message = 'self signed' \
+                                                             ' certificate'
     return mock_response
