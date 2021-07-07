@@ -41,7 +41,7 @@ class DevoClient:
         )
         self.config.set_user(current_app.config['USER_AGENT'])
         self._client = self._authorize(self._auth, self._address, self.config)
-        self.default_limit = 101
+        self.default_limit = current_app.config['DEFAULT_CTR_ENTITIES_LIMIT']
 
     @property
     def _auth(self):
@@ -61,7 +61,8 @@ class DevoClient:
     def limit(self):
         try:
             limit = int(self.credentials['CTR_ENTITIES_LIMIT'])
-        except (ValueError, KeyError):
+            assert limit <= self.default_limit
+        except (ValueError, KeyError, AssertionError):
             return self.default_limit
         return limit
 
