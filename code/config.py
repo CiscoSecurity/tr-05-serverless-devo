@@ -10,4 +10,4 @@ class Config:
     }
     API_URL = 'https://{host}/search/query'
 
-    DEFAULT_CTR_ENTITIES_LIMIT = 101
+    DEFAULT_CTR_ENTITIES_LIMIT = 100
