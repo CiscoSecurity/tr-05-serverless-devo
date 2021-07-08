@@ -1,6 +1,7 @@
 from flask import current_app
-from api.errors import DevoError
-from requests.exceptions import ConnectionError
+from api.errors import DevoError, DevoSSLError
+from requests.exceptions import ConnectionError, SSLError
+
 from devo.api import (
     Client,
     DevoClientException,
@@ -17,6 +18,8 @@ def handle_devo_errors(func):
     def wraps(*args, **kwargs):
         try:
             return func(*args, **kwargs)
+        except SSLError as error:
+            raise DevoSSLError(error)
         except DevoClientException as error:
             try:
                 raise DevoError(error.args[0]['object'])
@@ -24,6 +27,7 @@ def handle_devo_errors(func):
                 raise DevoError(error.args[0]['error']['message'])
         except ConnectionError as error:
             raise DevoError(error.args[0].args[0])
+
     return wraps
 
 
@@ -35,6 +39,7 @@ class DevoClient:
             processor=JSON_SIMPLE,
             stream=True
         )
+        self.config.set_user(current_app.config['USER_AGENT'])
         self._client = self._authorize(self._auth, self._address, self.config)
         self.default_limit = current_app.config['DEFAULT_CTR_ENTITIES_LIMIT']
 
@@ -50,7 +55,7 @@ class DevoClient:
         host = self.credentials['HOST']
         if not host:
             raise DevoError(ERROR_MSGS['no_endpoint'])
-        return current_app.config['API_URL'].format(host=host)
+        return host
 
     @property
     def limit(self):
@@ -91,7 +96,7 @@ class DevoClient:
                 "from": "now()-30*day()",
                 "to": "now()"
             },
-            limit=limit
+            limit=limit+1
         )
 
         return [data for data in response]
