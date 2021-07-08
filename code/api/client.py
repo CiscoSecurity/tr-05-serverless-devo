@@ -1,4 +1,5 @@
 from flask import current_app
+from json import JSONDecodeError
 from api.errors import DevoError, DevoSSLError
 from requests.exceptions import ConnectionError, SSLError
 
@@ -27,6 +28,8 @@ def handle_devo_errors(func):
                 raise DevoError(error.args[0]['error']['message'])
         except ConnectionError as error:
             raise DevoError(error.args[0].args[0])
+        except JSONDecodeError:
+            return []
 
     return wraps
 
