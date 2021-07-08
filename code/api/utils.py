@@ -4,9 +4,12 @@ import requests
 
 from json.decoder import JSONDecodeError
 from flask import request, jsonify, current_app, g
-from requests.exceptions import ConnectionError, InvalidURL
+from requests.exceptions import ConnectionError, InvalidURL, SSLError
 from jwt import InvalidSignatureError, DecodeError, InvalidAudienceError
-from api.errors import AuthorizationError, InvalidArgumentError
+from api.errors import (
+    AuthorizationError,
+    InvalidArgumentError
+)
 
 
 NO_AUTH_HEADER = 'Authorization header is missing'
@@ -33,7 +36,8 @@ def get_public_key(jwks_host, token):
         ConnectionError: WRONG_JWKS_HOST,
         InvalidURL: WRONG_JWKS_HOST,
         KeyError: WRONG_JWKS_HOST,
-        JSONDecodeError: WRONG_JWKS_HOST
+        JSONDecodeError: WRONG_JWKS_HOST,
+        SSLError: WRONG_JWKS_HOST
     }
     try:
         response = requests.get(f"https://{jwks_host}/.well-known/jwks")
