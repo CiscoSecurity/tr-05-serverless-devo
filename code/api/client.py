@@ -34,7 +34,7 @@ def handle_devo_errors(func):
     return wraps
 
 
-class DevoClient:
+class DevoClient(Client):
     def __init__(self, credentials):
         self.credentials = credentials
         self.config = ClientConfig(
@@ -42,9 +42,9 @@ class DevoClient:
             processor=JSON_SIMPLE,
             stream=True
         )
-        self.config.set_user(current_app.config['USER_AGENT'])
-        self._client = self._authorize(self._auth, self._address, self.config)
         self.default_limit = current_app.config['DEFAULT_CTR_ENTITIES_LIMIT']
+        super().__init__(auth=self._auth, address=self._address,
+                         retries=2, config=self.config)
 
     @property
     def _auth(self):
@@ -69,22 +69,13 @@ class DevoClient:
             return self.default_limit
         return limit
 
-    @staticmethod
-    def _authorize(auth, address, config, retries=2):
-        """
-        Authorize on specific address with given credentials in auth
-        :param auth: object which contains params (key, secret)
-        :param address: endpoint
-        :param config: main class for configuration of Client class
-        with diferent configurations
-        :param retries: number of retries for a query
-        :return: <class 'devo.api.client.Client'>
-        """
-        return Client(auth=auth, address=address, retries=retries,
-                      config=config)
+    def _get_headers(self, data):
+        headers = super(DevoClient, self)._get_headers(data)
+        headers['User-Agent'] = current_app.config['USER_AGENT']
+        return headers
 
     @handle_devo_errors
-    def query(self, observable, limit=None):
+    def search(self, observable, limit=None):
         """
         Query API by a custom query
         :param observable: observable value which need to be investigated
@@ -93,24 +84,13 @@ class DevoClient:
         """
         if limit is None:
             limit = self.limit
-        response = self._client.query(
+        response = self.query(
             query=f"from all.data where toktains(message, '{observable}')",
             dates={
                 "from": "now()-30*day()",
                 "to": "now()"
             },
-            limit=limit+1
+            limit=limit + 1
         )
 
         return [data for data in response]
-
-    @handle_devo_errors
-    def jobs(self, type_=None, name=None):
-        """
-        Get list of jobs by type and name, default All
-        :param type_: category of jobs
-        :param name: name of jobs
-        :return: json
-        """
-
-        return self._client.get_jobs(type_, name)
