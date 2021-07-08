@@ -50,3 +50,6 @@ class Config:
 
     DEFAULT_CTR_ENTITIES_LIMIT = 100
     TOO_MANY_MSGS_WARNING_LIMIT = DEFAULT_CTR_ENTITIES_LIMIT + 1
+
+    USER_AGENT = ('SecureX Threat Response Integrations '
+                  '<tr-integrations-support@cisco.com>')

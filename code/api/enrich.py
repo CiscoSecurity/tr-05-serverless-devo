@@ -3,6 +3,7 @@ from api.mapping import Mapping
 from api.client import DevoClient
 from api.schemas import ObservableSchema
 from flask import Blueprint, g, current_app
+from api.errors import TooManyMessagesWarning
 
 from api.utils import (
     get_json,
@@ -13,7 +14,6 @@ from api.utils import (
     add_error
 )
 
-from api.errors import TooManyMessagesWarning
 
 enrich_api = Blueprint('enrich', __name__)
 
@@ -39,7 +39,7 @@ def observe_observables():
 
     for observable in observables:
         messages = client.query(observable['value'])
-        for msg in messages:
+        for msg in messages[:client.limit]:
 
             sighting = mapping.extract_sighting(observable, msg)
             g.sightings.append(sighting)
