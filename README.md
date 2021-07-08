@@ -72,8 +72,54 @@ This application was developed and tested under Python version 3.9
 
 ### Implemented Relay Endpoints
 
-`N/A`
+- `POST /health`
+  - Verifies the Authorization Bearer JWT and decodes it to restore the original credentials.
+  - Authenticates to the underlying external service to check that provided credentials are valid and the service is available at the moment. 
+  
+- `Post /observe/observables`
+  - Accepts a list of observables.
+  - Verifies the Authorization Bearer JWT and decodes it to restore the original credentials.
+  - Makes request to the underlying external service to query for some cyber threat intelligence data on each supported observable.
+  - Maps the fetched data into appropriate CTIM entities.
+  - Returns a list per each of the following CTIM entities (if any extracted):
+    - Sighting
+  
+- `POST /version`
+  - Returns the current version of the application.
 
 ### Supported Types of Observables
 
-`N/A`
+`ALL`
+
+### CTIM Mapping Specifics
+
+Each response from the Devo API for the supported observables generates the following CTIM entities:
+
+| Property in CTIM          | Required | Maps to                                                      |
+| ------------------------- | -------- | ------------------------------------------------------------ |
+| confidence                | yes      | High                                                         |
+| count                     | yes      | 1                                                            |
+| id                        | yes      | type, title, .object[].eventdate, and observable.value are used as seed to generate ID |
+| observed_time: start_time | yes      | .object[].eventdate                                          |
+| schema_version            | yes      | 1.1.6                                                        |
+| type                      | yes      | sighting                                                     |
+| data: columns             |          | Keys (as `"type": "string"`) for the following fields: "technology", "brand", "phylum", "family", "genus", "species" |
+| data: rows                |          | Values for associated fields used in columns                 |
+| description               |          | .object[].message                                            |
+| internal                  |          | True                                                         |
+| observables               |          | The observable and type that was searched for                |
+| short_description         |          | Devo received a log message from {.object[].hostName} containing the observable |
+| source                    |          | Devo                                                         |
+| title                     |          | Log message received by Devo in last 30 days contains observable |
+
+
+Used values:
+  - .object[]
+  - .object[].eventdate
+  - .object[].message
+  - .object[].technology
+  - .object[].brand
+  - .object[].phylum
+  - .object[].family
+  - .object[].genus
+  - .object[].species
