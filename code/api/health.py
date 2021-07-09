@@ -9,6 +9,6 @@ health_api = Blueprint('health', __name__)
 def health():
     credentials = get_credentials()
     client = DevoClient(credentials)
-    _ = client.query('1.1.1.1', limit=1)
+    _ = client.get_jobs()
 
     return jsonify_data({'status': 'ok'})

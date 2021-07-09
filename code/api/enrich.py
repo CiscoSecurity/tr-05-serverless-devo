@@ -38,7 +38,7 @@ def observe_observables():
     mapping = Mapping()
 
     for observable in observables:
-        messages = client.query(observable['value'])
+        messages = client.search(observable['value'])
         for msg in messages[:client.limit]:
 
             sighting = mapping.extract_sighting(observable, msg)
