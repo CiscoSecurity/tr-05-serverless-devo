@@ -93,33 +93,21 @@ This application was developed and tested under Python version 3.9
 
 ### CTIM Mapping Specifics
 
-Each response from the Devo API for the supported observables generates the following CTIM entities:
+Each response from the Recorded Future API for the supported observables generates the following CTIM entities:
+- `Sighting`
 
-| Property in CTIM          | Required | Maps to                                                      |
-| ------------------------- | -------- | ------------------------------------------------------------ |
-| confidence                | yes      | High                                                         |
-| count                     | yes      | 1                                                            |
-| id                        | yes      | type, title, .object[].eventdate, and observable.value are used as seed to generate ID |
-| observed_time: start_time | yes      | .object[].eventdate                                          |
-| schema_version            | yes      | 1.1.6                                                        |
-| type                      | yes      | sighting                                                     |
-| data: columns             |          | Keys (as `"type": "string"`) for the following fields: "technology", "brand", "phylum", "family", "genus", "species" |
-| data: rows                |          | Values for associated fields used in columns                 |
-| description               |          | .object[].message                                            |
-| internal                  |          | True                                                         |
-| observables               |          | The observable and type that was searched for                |
-| short_description         |          | Devo received a log message from {.object[].hostName} containing the observable |
-| source                    |          | Devo                                                         |
-| title                     |          | Log message received by Devo in last 30 days contains observable |
+Sightings are based on `.messages[]`.
 
+`.message.hostName` is the host name of the device that send the log message to Devo cloud. Used to form short description.
+`.message.eventdate` returned as EPOCH time in milliseconds and converted to ISO 8601. Used to form `Sighting` start time.
 
 Used values:
-  - .object[]
-  - .object[].eventdate
-  - .object[].message
-  - .object[].technology
-  - .object[].brand
-  - .object[].phylum
-  - .object[].family
-  - .object[].genus
-  - .object[].species
+  - .messages[]
+  - .message.eventdate
+  - .message.message
+  - .message.technology
+  - .message.brand
+  - .message.phylum
+  - .message.family
+  - .message.genus
+  - .message.species
