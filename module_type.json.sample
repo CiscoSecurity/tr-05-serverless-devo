@@ -3,11 +3,15 @@
   "default_name": "Devo",
   "short_description": "Devo is cloud-native logging and security analytics.",
   "description": "Devo gives you the confidence to transform your SOC, shift your logging to the Cloud and empower your analysts.",
-  "tips": "When configuring this integration, you must first gather some information from your Devo account.\n\n1. Log into Devo and copy the **key** and **secret** from 'Credentials' tab into a file, or leave the tab open. Also you will need **host** of your Devo instance.\n2. Complete the **Add New Devo Module** form:\n    - **Module Name** - Leave the default name or enter a name that is meaningful to you.\n   - **KEY** - Enter third party api key.\n   - **SECRET** - Enter third party api secret.\n   - **HOST** - Enter third party host.\n   - **Entities Limit** - Enter the limit that restricts the maximum number of CTIM entities of each type returned in a single response per each requested observable. Must be a positive integer less or equal to 100. Defaults to 100 (if unset or incorrect).\n2. Click **Save** to complete the Devo module configuration.",
+  "tips": "When configuring this integration, you must first gather some information from your Devo account.\n\n1. Log into Devo and copy the **key** and **secret** from 'Credentials' tab into a file, or leave the tab open. To get detailed information about Devo access keys generation, please follow the [link](https://docs.devo.com/confluence/ndt/latest/domain-administration/security-credentials/access-keys). Also you will need **host** of your Devo instance.\n2. Complete the **Add New Devo Module** form:\n    - **Module Name** - Leave the default name or enter a name that is meaningful to you.\n   - **KEY** - Enter third party api key.\n   - **SECRET** - Enter third party api secret.\n   - **HOST** - Enter third party host.\n   - **Entities Limit** - Enter the limit that restricts the maximum number of CTIM entities of each type returned in a single response per each requested observable. Must be a positive integer less or equal to 100. Defaults to 100 (if unset or incorrect).\n2. Click **Save** to complete the Devo module configuration.",
   "external_references": [
     {
       "label": "Devo official website",
       "link": "https://www.devo.com/"
+    },
+    {
+      "label": "Devo access keys generation instruction",
+      "link": "https://docs.devo.com/confluence/ndt/latest/domain-administration/security-credentials/access-keys"
     }
   ],
   "configuration_spec": [
