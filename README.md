@@ -93,7 +93,7 @@ This application was developed and tested under Python version 3.9
 
 ### CTIM Mapping Specifics
 
-Each response from the Recorded Future API for the supported observables generates the following CTIM entities:
+Each response from the Devo API for the supported observables generates the following CTIM entities:
 - `Sighting`
 
 Sightings are based on `.messages[]`.
