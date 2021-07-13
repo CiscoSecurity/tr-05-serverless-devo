@@ -5,7 +5,12 @@ import requests
 from json.decoder import JSONDecodeError
 from flask import request, jsonify, current_app, g
 from requests.exceptions import ConnectionError, InvalidURL, SSLError
-from jwt import InvalidSignatureError, DecodeError, InvalidAudienceError
+from jwt import (
+    InvalidSignatureError,
+    DecodeError,
+    InvalidAudienceError,
+    MissingRequiredClaimError
+)
 from api.errors import (
     AuthorizationError,
     InvalidArgumentError
@@ -80,6 +85,7 @@ def get_credentials():
 
     expected_errors = {
         KeyError: WRONG_PAYLOAD_STRUCTURE,
+        MissingRequiredClaimError: WRONG_PAYLOAD_STRUCTURE,
         AssertionError: JWKS_HOST_MISSING,
         InvalidSignatureError: WRONG_KEY,
         DecodeError: WRONG_JWT_STRUCTURE,
