@@ -64,7 +64,7 @@ class Mapping:
             'id': self._transient_id(
                 SIGHTING, TITLE,
                 msg.get("eventdate"),
-                observable['value']
+                msg.get("message")
             ),
             'description': f"```\n{msg.get('message', '')}\n```",
             'observables': [observable],
