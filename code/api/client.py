@@ -88,6 +88,15 @@ class DevoClient(Client):
         headers['User-Agent'] = current_app.config['USER_AGENT']
         return headers
 
+    def _call_jobs(self, address):
+        result = super(DevoClient, self)._call_jobs(address)
+        if not result:
+            return raise_exception({
+                "status": 400,
+                "object": ERROR_MSGS['no_respond']
+            })
+        return result
+
     @handle_devo_errors
     def search(self, observable, limit=None):
         """
@@ -108,15 +117,6 @@ class DevoClient(Client):
         )
 
         return [data for data in response]
-
-    def _call_jobs(self, address):
-        result = super(DevoClient, self)._call_jobs(address)
-        if not result:
-            raise raise_exception({
-                "status": 400,
-                "object": ERROR_MSGS['no_respond']
-            })
-        return result
 
     @handle_devo_errors
     def get_jobs(self, job_type=None, name=None):
