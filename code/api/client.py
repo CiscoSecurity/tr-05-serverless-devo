@@ -1,7 +1,10 @@
+import json
+import requests
+
 from flask import current_app
 from json import JSONDecodeError
 from api.errors import DevoError, DevoSSLError
-from requests.exceptions import ConnectionError, SSLError
+from devo.api.client import raise_exception, ERROR_MSGS
 
 from devo.api import (
     Client,
@@ -10,26 +13,35 @@ from devo.api import (
     JSON_SIMPLE
 )
 
-ERROR_MSGS = {
-    "no_endpoint": "Host not found"
+
+ERRORS = {
+    "no_endpoint": "Host not found",
+    "no_respond": ("Devo didn't respond in time. "
+                   "Please, check your key/secret or auth token/jwt")
 }
+ERROR_MSGS.update(ERRORS)
+ERROR_MSGS['no_auth'] = "Client doesn't have key&secret or auth token/jwt"
 
 
 def handle_devo_errors(func):
     def wraps(*args, **kwargs):
         try:
             return func(*args, **kwargs)
-        except SSLError as error:
+        except requests.exceptions.SSLError as error:
             raise DevoSSLError(error)
         except DevoClientException as error:
             try:
                 raise DevoError(error.args[0]['object'])
             except KeyError:
                 raise DevoError(error.args[0]['error']['message'])
-        except ConnectionError as error:
+            except TypeError:
+                raise DevoError(json.loads(error.args[0])['object'])
+        except (ConnectionError, requests.exceptions.ConnectionError) as error:
             raise DevoError(error.args[0].args[0])
         except JSONDecodeError:
             return []
+        except requests.exceptions.InvalidHeader as error:
+            raise DevoError(error.args[0])
 
     return wraps
 
@@ -42,9 +54,11 @@ class DevoClient(Client):
             processor=JSON_SIMPLE,
             stream=True
         )
+        timeout = current_app.config['DEFAULT_TIMEOUT']
+        retries = current_app.config['DEFAULT_RETRIES']
         self.default_limit = current_app.config['DEFAULT_CTR_ENTITIES_LIMIT']
         super().__init__(auth=self._auth, address=self._address,
-                         retries=2, config=self.config)
+                         retries=retries, config=self.config, timeout=timeout)
 
     @property
     def _auth(self):
@@ -74,6 +88,15 @@ class DevoClient(Client):
         headers['User-Agent'] = current_app.config['USER_AGENT']
         return headers
 
+    def _call_jobs(self, address):
+        result = super(DevoClient, self)._call_jobs(address)
+        if not result:
+            return raise_exception({
+                "status": 400,
+                "object": ERROR_MSGS['no_respond']
+            })
+        return result
+
     @handle_devo_errors
     def search(self, observable, limit=None):
         """
@@ -94,3 +117,7 @@ class DevoClient(Client):
         )
 
         return [data for data in response]
+
+    @handle_devo_errors
+    def get_jobs(self, job_type=None, name=None):
+        return super(DevoClient, self).get_jobs(job_type, name)
