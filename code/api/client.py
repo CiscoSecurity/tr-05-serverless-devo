@@ -111,37 +111,13 @@ class DevoClient(Client):
         return [data for data in response]
 
     def _call_jobs(self, address):
-        """
-        Make the call
-        :param address: endpoint
-        :return: Response from API
-        """
-        tries = 0
-        while tries < self.retries:
-            response = None
-            try:
-                response = requests.get("https://{}".format(address),
-                                        headers=self._get_headers(""),
-                                        verify=self.verify,
-                                        timeout=self.timeout)
-            except ConnectionError as error:
-                raise_exception({"status": 404, "msg": error})
-
-            if response:
-                if response.status_code != 200 or\
-                        "error" in response.text[0:15].lower():
-                    raise_exception(response.text)
-                    return None
-                try:
-                    return json.loads(response.text)
-                except json.decoder.JSONDecodeError:
-                    return response.text
-            tries += 1
-            time.sleep(self.timeout)
-        raise raise_exception({
-            "status": 400,
-            "object": ERROR_MSGS['no_respond']
-        })
+        result = super(DevoClient, self)._call_jobs(address)
+        if not result:
+            raise raise_exception({
+                "status": 400,
+                "object": ERROR_MSGS['no_respond']
+            })
+        return result
 
     @handle_devo_errors
     def get_jobs(self, job_type=None, name=None):
