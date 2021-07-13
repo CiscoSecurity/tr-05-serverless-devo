@@ -54,7 +54,7 @@ class TooManyMessagesWarning(TRFormattedError):
         super().__init__(
             'too-many-messages-warning',
             f'More messages found in Devo for {observable} '
-            f'than can be rendered. Login to the Devo '
+            f'than can be rendered. Log in to the Devo '
             f'console to see all messages',
             'warning'
         )

@@ -227,7 +227,7 @@ def base_payload():
                                        "{\"tn\":\"Infected.RET.Cryptomining.MediumRisk\",\"td\":1,\"tl\":3},"
                                        "{\"tn\":\"Infected.Cryptomining.MediumRisk\",\"td\":1,\"tl\":1},"
                                        "{\"tn\":\"CustomIPList\",\"td\":1,\"tl\":3}]}\n```",
-                        "id": "transient:sighting-991da40c-19e4-596b-bc1e-d903c191805d",
+                        "id": "transient:sighting-13cc8c2a-f233-5814-a897-d378ef1cda2c",
                         "internal": True,
                         "observables": [
                             {
@@ -300,7 +300,7 @@ def base_payload():
                                        "{\"tn\":\"Infected.RET.Cryptomining.MediumRisk\",\"td\":1,\"tl\":3},"
                                        "{\"tn\":\"Infected.Cryptomining.MediumRisk\",\"td\":1,\"tl\":1},"
                                        "{\"tn\":\"CustomIPList\",\"td\":1,\"tl\":3}]}\n```",
-                        "id": "transient:sighting-991da40c-19e4-596b-bc1e-d903c191805d",
+                        "id": "transient:sighting-52fabb09-16d7-5827-a81d-8b5084c3b611",
                         "internal": True,
                         "observables": [
                             {
