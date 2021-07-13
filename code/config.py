@@ -52,3 +52,6 @@ class Config:
 
     USER_AGENT = ('SecureX Threat Response Integrations '
                   '<tr-integrations-support@cisco.com>')
+
+    DEFAULT_TIMEOUT = 15
+    DEFAULT_RETRIES = 2
