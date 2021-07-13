@@ -1,5 +1,4 @@
 import json
-import time
 import requests
 
 from flask import current_app
