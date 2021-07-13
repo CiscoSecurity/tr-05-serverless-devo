@@ -36,8 +36,8 @@ DATA = (
 class Mapping:
 
     @staticmethod
-    def _transient_id(type_, title, timestamp, observable) -> str:
-        seeds = f'{type_}|{title}|{timestamp}|{observable}'
+    def _transient_id(type_, title, timestamp, message) -> str:
+        seeds = f'{type_}|{title}|{timestamp}|{message}'
         return f'transient:{type_}-{uuid5(NAMESPACE_X500, seeds)}'
 
     @staticmethod
