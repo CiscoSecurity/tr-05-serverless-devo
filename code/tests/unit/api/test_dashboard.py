@@ -3,7 +3,6 @@ from http import HTTPStatus
 from .utils import get_headers
 from unittest.mock import patch
 from collections import namedtuple
-from api.errors import INVALID_ARGUMENT
 from ..conftest import mock_api_response
 from ..payloads_for_tests import EXPECTED_RESPONSE_OF_JWKS_ENDPOINT
 
@@ -56,24 +55,10 @@ def wrong_call(request):
     return request.param
 
 
-@fixture(scope='module')
-def invalid_argument_expected_payload():
-    def _make_message(message):
-        return {
-            'errors': [{
-                'code': INVALID_ARGUMENT,
-                'message': message,
-                'type': 'fatal'
-            }]
-        }
-
-    return _make_message
-
-
 @patch('requests.get')
 def test_dashboard_call_with_wrong_payload(mock_request,
                                            wrong_call, client, valid_jwt,
-                                           invalid_argument_expected_payload):
+                                           invalid_json_expected_payload):
 
     mock_request.return_value = \
         mock_api_response(payload=EXPECTED_RESPONSE_OF_JWKS_ENDPOINT)
@@ -84,7 +69,7 @@ def test_dashboard_call_with_wrong_payload(mock_request,
         json=wrong_call.payload
     )
     assert response.status_code == HTTPStatus.OK
-    assert response.json == invalid_argument_expected_payload(
+    assert response.json == invalid_json_expected_payload(
         wrong_call.message
     )
 
