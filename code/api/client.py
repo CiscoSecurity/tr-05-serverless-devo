@@ -17,7 +17,8 @@ from devo.api import (
 
 ERRORS = {
     "no_endpoint": "Host not found",
-    "invalid_signature": "Invalid signature validation"
+    "no_respond": ("Devo didn't respond in time. "
+                   "Please, check your key/secret or auth token/jwt")
 }
 ERROR_MSGS.update(ERRORS)
 ERROR_MSGS['no_auth'] = "Client doesn't have key&secret or auth token/jwt"
@@ -139,7 +140,7 @@ class DevoClient(Client):
             time.sleep(self.timeout)
         raise raise_exception({
             "status": 400,
-            "object": ERROR_MSGS['invalid_signature']
+            "object": ERROR_MSGS['no_respond']
         })
 
     @handle_devo_errors
