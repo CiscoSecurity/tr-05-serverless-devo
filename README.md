@@ -89,7 +89,7 @@ This application was developed and tested under Python version 3.9
 
 ### Supported Types of Observables
 
-`ALL`
+All types allowed in [CTIM](https://github.com/threatgrid/ctim/blob/master/doc/structures/sighting.md#propertytype-observabletypeidentifierstring)
 
 ### CTIM Mapping Specifics
 
@@ -98,8 +98,8 @@ Each response from the Devo API for the supported observables generates the foll
 
 Sightings are based on `.messages[]`.
 
-`.message.hostName` is the host name of the device that send the log message to Devo cloud. Used to form short description.
-`.message.eventdate` returned as EPOCH time in milliseconds and converted to ISO 8601. Used to form `Sighting` start time.
+`.message.hostName` is the host name of the device that sends the log message to Devo cloud. Used to form `Sighting` short description.
+`.message.eventdate` is returned as EPOCH time in milliseconds and converted to ISO 8601. Used to form `Sighting` observed time start time.
 
 Used values:
   - .messages[]
