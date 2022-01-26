@@ -3,13 +3,18 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[[source]]
+url = "https://test.pypi.org/simple"
+verify_ssl = true
+name = "test_pypi"
+
 [packages]
-cryptography = "==3.3.2"
-Flask = "==2.0.1"
-marshmallow = "==3.12.1"
-requests = "==2.25.1"
-PyJWT = "==2.1.0"
-devo-sdk = "==3.2.5"
+cryptography = "*"
+Flask = "*"
+marshmallow = "*"
+requests = "*"
+PyJWT = "*"
+devo-sdk = {version = "==3.5.0", index = "test_pypi"}
 
 [dev-packages]
 flake8 = "==3.9.2"
