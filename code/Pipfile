@@ -5,11 +5,11 @@ name = "pypi"
 
 [packages]
 cryptography = "==3.3.2"
-Flask = "==2.0.1"
+Flask = "==1.1.4"
 marshmallow = "==3.12.1"
-requests = "==2.25.1"
+requests = "==2.27.1"
 PyJWT = "==2.1.0"
-devo-sdk = "==3.2.5"
+devo-sdk = "==3.5.0"
 
 [dev-packages]
 flake8 = "==3.9.2"
