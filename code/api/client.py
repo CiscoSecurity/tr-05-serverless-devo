@@ -4,7 +4,7 @@ import requests
 from flask import current_app
 from json import JSONDecodeError
 from api.errors import DevoError, DevoSSLError
-from devo.api.client import raise_exception, ERROR_MSGS
+from devo.api.client import ERROR_MSGS
 
 from devo.api import (
     Client,
@@ -91,10 +91,10 @@ class DevoClient(Client):
     def _call_jobs(self, address):
         result = super(DevoClient, self)._call_jobs(address)
         if not result:
-            return raise_exception({
+            return {
                 "status": 400,
                 "object": ERROR_MSGS['no_respond']
-            })
+            }
         return result
 
     @handle_devo_errors
